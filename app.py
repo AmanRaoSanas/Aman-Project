@@ -1,9 +1,9 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, flash
 from flask_pymongo import PyMongo
 
 app = Flask(__name__)
 
-# DB creation
+#DB creation
 mongodb_client = PyMongo(app, uri="mongodb://localhost:27017/todo_db")
 db = mongodb_client.db
 
@@ -14,7 +14,7 @@ db = mongodb_client.db
 
 @app.route("/")
 def index():
-    return render_template('Dashboard.html')
+    return render_template('index.html')
 
 @app.route("/login", methods=['POST', "GET"])
 def login():
@@ -22,7 +22,9 @@ def login():
         email = request.form.get('email')
         password = request.form.get('password')
         user = db.todos.find_one({"email": email})
-        if email==user.get('email') and password == user.get('password'):
+        print(email,password)
+        # assert email == 'amnsns17@gmail.com'
+        if user != None and email==user.get('email') and password == user.get('password'):
             return render_template('Dashboard.html', user=user)
     return render_template('Login.html')
 
@@ -37,5 +39,6 @@ def register():
         return render_template('Login.html')
     return render_template('Register.html')
 
-if __name__ =="__main__":
-    app.run(debug=True)
+if __name__ == "__main__":
+    app.secret_key = 'super secret key'
+    app.run(host='0.0.0.0', port=5001, debug=True)
