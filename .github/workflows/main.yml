@@ -3,7 +3,7 @@
 name: CI-CD-pipeline-for-AWS
 
 env:
-  EB_package_S3_bucket_name : "py-flask-aman"
+  EB_PACKAGE_S3_BUCKET_NAME : "py-flask-aman"
   EB_application_name       : "flask-man"
   EB_environment_name       : "flaskman-env"
   DEPLOY_PACKAGE_NAME       : "flask-aman${{ github.sha }}.zip"
@@ -36,7 +36,7 @@ jobs:
           awws-region : ${{ env.AWS_Region_name }}
       
       - name: copy deployment package to S3 bucket 
-        run: aws s3 cp ${{ env.DEPLOY_PACKAGE_NAME }} s3://${{ EB_package_S3_bucket_name}}/
+        run: aws s3 cp ${{ env.DEPLOY_PACKAGE_NAME }} s3://${{ EB_PACKAGE_S3_BUCKET_NAME}}/
          
       - name: success Message 
         run: echo "pipelines worked successfully "
