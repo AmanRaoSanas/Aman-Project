@@ -36,7 +36,7 @@ jobs:
           awws-region : ${{ env.AWS_Region_name }}
       
       - name: copy deployment package to S3 bucket 
-        run: aws s3 cp ${{ env.DEPLOY_PACKAGE_NAME }} s3://${{ EB_package_S3-bucket_name}}/
+        run: aws s3 cp ${{ env.DEPLOY_PACKAGE_NAME }} s3://${{ EB_package_S3_bucket_name}}/
          
       - name: success Message 
         run: echo "pipelines worked successfully "
