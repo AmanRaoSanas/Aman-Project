@@ -1,0 +1,46 @@
+# This is a basic workflow to help you get started with Actions
+
+name: CI-CD-pipeline-for-AWS
+
+env:
+  EB_package_S3-bucket_name : "py-flask-aman"
+  EB_application_name       : "flask-man"
+  EB_environment_name       : "flaskman-env"
+  Deploy_package_name       : "flask-aman${{ github.sha }}.zip"
+  AWS_Region_name           : "us-west-2"
+
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events but only for the main branch
+  push:
+    branches: [ main ]
+
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+   my_ci_pipeline:
+    runs-on : ubuntu-latest
+    
+    steps:
+      - name: Git clone our repo 
+        uses: actions/checkout@v1
+      
+      - name: create zip package
+        run: zip -r ${{ env.DEPLOY_PACKAGE_NAME }} ./ -x ".git"
+        
+      - name: configure AWS
+        uses: aws-action/configure-aws-credentials@v1
+        with:
+          aws-access-key-id : ${{ secrets.MY_AWS_ACCESS_KEY }}
+          aws-secret-access-key : ${{ secrets.MY_AWS_SECRET_KEY }}
+          awws-region : ${{ env.AWS_Region_name }}
+      
+      - name: copy deployment package to S3 bucket 
+        run: aws s3 cp ${{ env.DEPLOY_PACKAGE_NAME }} s3://${{ EB_package_S3-bucket_name }}/
+         
+     - name: success Message 
+      run: echo "pipelines worked successfully "
