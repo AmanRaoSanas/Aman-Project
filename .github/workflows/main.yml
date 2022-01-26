@@ -6,7 +6,7 @@ env:
   EB_package_S3_bucket_name : "py-flask-aman"
   EB_application_name       : "flask-man"
   EB_environment_name       : "flaskman-env"
-  Deploy_package_name       : "flask-aman${{ github.sha }}.zip"
+  DEPLOY_PACKAGE_NAME       : "flask-aman${{ github.sha }}.zip"
   AWS_Region_name           : "us-west-2"
 
 
