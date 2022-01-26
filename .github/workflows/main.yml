@@ -54,8 +54,7 @@ jobs:
           aws-region : ${{ env.AWS_Region_name }}
           
       - name: create new elastic version
-        run: |
-          aws elasticbeanstalk create-application-version \
+        run: aws elasticbeanstalk create-application-version \
           --application-name ${{ env.EB_application_name }} \
           --source-bundle S3bucket="${{ env.EB_PACKAGE_S3_BUCKET_NAME }}", S3key="${{ env.DEPLOY_PACKAGE_NAME }}" \
           --version-label "Ver-${{ github.sha }}" \
