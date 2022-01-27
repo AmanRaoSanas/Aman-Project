@@ -3,7 +3,7 @@
 name: CI-CD-pipeline-for-AWS
 
 env:
-  EB_PACKAGE_S3_BUCKET_NAME : "my-flaskapp"
+  EB_PACKAGE_S3_BUCKET_NAME : "flask-aman"
   EB_application_name       : "flask-man"
   EB_environment_name       : "flaskman-env"
   DEPLOY_PACKAGE_NAME       : "flask-app-${{ github.sha }}.zip"
